@@ -6,6 +6,7 @@ import AppointmentInfo from "./components/AppoinmentInfo"
 
 export function App()
 {
+
   const [appoinmentList, setAppoinmentList] = useState([]);
   const [query, setQuery] = useState("");
   const [sortBy, setSortBy] = useState("petName");
@@ -41,12 +42,13 @@ export function App()
 
   return <div className="container mx-auto mt-3 font-thin">
     <h1 className="text-5xl"><BiCalendar className="inline-block text-red-400" />Your Appiontment</h1>
-    <AddAppoinments />
+    <AddAppoinments onSendAppointment={myAppointment => setAppoinmentList([...appoinmentList, myAppointment])}
+      lastId={appoinmentList.reduce((max, item) => Number(item.id) > max ? Number(item.id) : max, 0)} />
     <Search
       query={query}
       onQueryChange={getQuery => setQuery(getQuery)}
       orderBy={orderBy}
-      onOrderByChange={mySort =>setOrderBy(mySort)}
+      onOrderByChange={mySort => setOrderBy(mySort)}
       sortBy={sortBy}
       onSortByChange={mySort => setSortBy(mySort)}
     />
